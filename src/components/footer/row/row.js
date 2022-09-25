@@ -3,10 +3,12 @@ import "./row.css";
 import YouTube  from "react-youtube";
 import axios from "../../../axios";
 import movieTrailer from "movie-trailer";
+import Loading from "../../loading/loading";
 const baseURL = "https://image.tmdb.org/t/p/original/";
 function Row({ title, fetchUrl, isLargRow }) {
   const [movies, setMovies] = useState([]);
   const [trial, setTrial] = useState("");
+  const [loading, setLoading] = useState(false);
   const opts = {
     height: "390",
     width: "100%",
@@ -17,8 +19,10 @@ function Row({ title, fetchUrl, isLargRow }) {
 
   useEffect(() => {
     async function fetchData() {
+        setLoading(true)
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
+      setLoading(false);
       return request;
     }
     fetchData();
@@ -27,17 +31,17 @@ function Row({ title, fetchUrl, isLargRow }) {
     if (trial) {
       setTrial("");
     } else {
-        movieTrailer(movie.id,null)
+        movieTrailer(movie)
         .then((url)=>{
-          console.log("url is "+url);
           const urlParams=new URLSearchParams(new URL(url).search);
-          console.log("urlParamsn"+urlParams);
           setTrial(urlParams.get("v"));
         })
         .catch((error)=> console.log(error));
     }
   };
   return (
+    <>
+      {loading?<Loading/>:null}
     <div className="row">
       <h2>{title}</h2>
       <div className="row_posters">
@@ -55,6 +59,7 @@ function Row({ title, fetchUrl, isLargRow }) {
       </div>
       {trial && <YouTube  videoId={trial} opts={opts} />}
     </div>
+    </>
   );
 }
 

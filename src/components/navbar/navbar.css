@@ -13,10 +13,11 @@
     background-color: #111;
 }
 .navbar img:first-child{
-    width: 80px;
+    width: 100px;
     position: fixed;
     left: 20;
     object-fit: contain;
+    top: 3px;
 }
 .navbar img:last-child{
     position: fixed;
