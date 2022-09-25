@@ -8,7 +8,7 @@ const baseURL = "https://image.tmdb.org/t/p/original/";
 function Row({ title, fetchUrl, isLargRow }) {
   const [movies, setMovies] = useState([]);
   const [trial, setTrial] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const opts = {
     height: "390",
     width: "100%",

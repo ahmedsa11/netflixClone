@@ -5,7 +5,7 @@ import requests from "../../requests";
 import Loading from "../loading/loading";
 function Banner() {
   const [movie, setMovie] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchData() {
         setLoading(true);
