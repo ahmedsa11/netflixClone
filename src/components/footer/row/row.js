@@ -16,7 +16,6 @@ function Row({ title, fetchUrl, isLargRow }) {
       autoplay: 1,
     },
   };
-
   useEffect(() => {
     async function fetchData() {
         setLoading(true)
@@ -27,11 +26,12 @@ function Row({ title, fetchUrl, isLargRow }) {
     }
     fetchData();
   }, [fetchUrl]);
+  
   const showTrial = (movie) => {
     if (trial) {
       setTrial("");
     } else {
-        movieTrailer(movie)
+        movieTrailer(movie?.name)
         .then((url)=>{
           const urlParams=new URLSearchParams(new URL(url).search);
           setTrial(urlParams.get("v"));

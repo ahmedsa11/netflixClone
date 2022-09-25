@@ -8,40 +8,39 @@ function Banner() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchData() {
-        setLoading(true);
-      const movie = await axios.get(requests.fetchNetflixOriginals)
-     setMovie(
-        movie.data.results[7]
-      );
-    //   setMovie(
-    //     movie.data.results[
-    //       Math.floor(Math.random() * movie.data.results.length - 1)
-    //     ]
-    //   );
+      setLoading(true);
+      const movie = await axios.get(requests.fetchNetflixOriginals);
+      setMovie(movie.data.results[7]);
+      //   setMovie(
+      //     movie.data.results[
+      //       Math.floor(Math.random() * movie.data.results.length - 1)
+      //     ]
+      //   );
       setLoading(false);
       return movie;
     }
     fetchData();
   }, []);
-function truncate(str,n){
-
-    return str?.length>n ?str.substring(0,n-1)+"...":str 
-}
+  function truncate(str, n) {
+    return str?.length > n ? str.substring(0, n - 1) + "..." : str;
+  }
   return (
     <>
-    { loading?<Loading/>:null}
+      {loading ? <Loading /> : null}
       <header
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`,
         }}
       >
         <div className="banner_content">
-          <h1 className="title">{movie?.title || movie?.name || movie?.original_name}</h1>
+          <h1 className="title">
+            {movie?.title || movie?.name || movie?.original_name}
+          </h1>
           <div className="banner_btn">
             <button>Play</button>
             <button>My List</button>
           </div>
-        <h1 className="desc">{truncate(movie?.overview,150)}</h1>
+          <h1 className="desc">{truncate(movie?.overview, 150)}</h1>
         </div>
         <div className="empty"></div>
       </header>
